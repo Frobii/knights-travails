@@ -75,6 +75,16 @@ end
 
 class Knight < GameBoard
 
+    def get_index(coord, board = @board)
+        coordArray = []
+
+        board.each do |node|
+            coordArray.push(node.coordinate)
+        end 
+        
+        return coordArray.index(coord)
+    end
+
     def possible_nodes(board = @board)
         coordArray = []
 
@@ -135,8 +145,15 @@ class Knight < GameBoard
 
         end
     end
+    
+    def knight_moves(start, finish, board = @board, startIndex = get_index(start))
+        output = []
+        queue = [board[startIndex]]
 
-    def print_paths(node = @board[2])
+        
+    end
+
+    def print_paths(node = @board[0])
         # for debugging, use this to check where a coordinates paths are
         # remember that the first position of an array is 0 ;)
 
@@ -172,3 +189,5 @@ puts "\n"
 a.possible_nodes
 
 a.print_paths
+
+a.knight_moves([1,2], [3,4])
