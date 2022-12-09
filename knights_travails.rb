@@ -146,11 +146,13 @@ class Knight < GameBoard
         end
     end
     
-    def knight_moves(start, finish, board = @board, startIndex = get_index(start))
+    def knight_moves(start, finish, board = @board, startIndex = get_index(start), finishIndex = get_index(finish))
         output = []
-        queue = [board[startIndex]]
+        start = board[startIndex]
+        finish = board[finishIndex]
 
-        
+        p start.coordinate
+        p finish.coordinate
     end
 
     def print_paths(node = @board[0])
