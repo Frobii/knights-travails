@@ -156,7 +156,7 @@ class Knight < GameBoard
     end
 
     def print_paths(node = @board[0])
-        # for debugging, use this to check where a coordinates paths are
+        # for debugging, change @board[] to check which moves the knight can make
         # remember that the first position of an array is 0 ;)
 
         p "vert1"
