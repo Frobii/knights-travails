@@ -179,17 +179,3 @@ class Knight < GameBoard
     end
 
 end
-
-a = Knight.new
-
-a.gridify
-
-a.display_board
-
-puts "\n"
-
-a.possible_nodes
-
-a.print_paths
-
-a.knight_moves([1,2], [3,4])
