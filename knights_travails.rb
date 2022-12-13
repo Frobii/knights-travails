@@ -146,19 +146,38 @@ class Knight < GameBoard
         end
     end
     
-    def knight_moves(start, finish, board = @board, startIndex = get_index(start), finishIndex = get_index(finish))
-        output = []
-        start = board[startIndex]
-        finish = board[finishIndex]
+    def knight_moves(start, finish, board = @board)
+        if start.is_a? Array
+            currentNode = board[get_index(start)]
+        else
+            currentNode = start
+        end
 
-        p start.coordinate
-        p finish.coordinate
+        queue = [currentNode]
+        output = []
+
+        until output[-1] == finish
+            current = queue.shift
+            output.push(current.coordinate)
+            queue.push(current.vert2) if current.vert2
+            queue.push(current.vert1) if current.vert1
+            queue.push(current.vert3) if current.vert3
+            queue.push(current.vert4) if current.vert4
+            queue.push(current.vert5) if current.vert5
+            queue.push(current.vert6) if current.vert6
+            queue.push(current.vert7) if current.vert7
+            queue.push(current.vert8) if current.vert8
+        end
+
+        output
     end
 
-    def print_paths(node = @board[0])
+    def print_paths(node = @board[56])
         # for debugging, change @board[] to check which moves the knight can make
         # remember that the first position of an array is 0 ;)
 
+        p "coordinate"
+        p node.coordinate
         p "vert1"
         p node.vert1.coordinate if !node.vert1.nil?
         p "vert2"
