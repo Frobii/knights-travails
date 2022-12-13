@@ -159,8 +159,8 @@ class Knight < GameBoard
         until output[-1] == finish
             current = queue.shift
             output.push(current.coordinate)
-            queue.push(current.vert2) if current.vert2
             queue.push(current.vert1) if current.vert1
+            queue.push(current.vert2) if current.vert2
             queue.push(current.vert3) if current.vert3
             queue.push(current.vert4) if current.vert4
             queue.push(current.vert5) if current.vert5
