@@ -56,11 +56,12 @@ end
 
 class Knight_Node
 
-    attr_reader :coordinate, :vert1, :vert2, :vert3, :vert4, :vert5, :vert6, :vert7, :vert8
-    attr_writer :coordinate, :vert1, :vert2, :vert3, :vert4, :vert5, :vert6, :vert7, :vert8
+    attr_reader :coordinate, :vert1, :vert2, :vert3, :vert4, :vert5, :vert6, :vert7, :vert8, :visited
+    attr_writer :coordinate, :vert1, :vert2, :vert3, :vert4, :vert5, :vert6, :vert7, :vert8, :visited
 
     def initialize(value = [0, 0])
         @coordinate = value
+        @visited = false
         @vert1 = nil
         @vert2 = nil
         @vert3 = nil
@@ -147,27 +148,37 @@ class Knight < GameBoard
     end
     
     def knight_moves(start, finish, board = @board)
-        if start.is_a? Array
-            currentNode = board[get_index(start)]
-        else
-            currentNode = start
-        end
 
+        currentNode = board[get_index(start)]
+    
         queue = [currentNode]
         output = []
+        moves = 0
 
         until output[-1] == finish
             current = queue.shift
+            moves += 1
+            moves = 0 if current == start
             output.push(current.coordinate)
-            queue.push(current.vert1) if current.vert1
-            queue.push(current.vert2) if current.vert2
-            queue.push(current.vert3) if current.vert3
-            queue.push(current.vert4) if current.vert4
-            queue.push(current.vert5) if current.vert5
-            queue.push(current.vert6) if current.vert6
-            queue.push(current.vert7) if current.vert7
-            queue.push(current.vert8) if current.vert8
+            queue.push(current.vert1) if current.vert1 && !current.vert1.visited
+            current.vert1.visited = true if current.vert1 && current != start
+            queue.push(current.vert2) if current.vert2 && !current.vert2.visited
+            current.vert2.visited = true if current.vert2 && current != start
+            queue.push(current.vert3) if current.vert3 && !current.vert3.visited
+            current.vert3.visited = true if current.vert3 && current != start
+            queue.push(current.vert4) if current.vert4 && !current.vert4.visited
+            current.vert4.visited = true if current.vert4 && current != start
+            queue.push(current.vert5) if current.vert5 && !current.vert5.visited
+            current.vert5.visited = true if current.vert5 && current != start
+            queue.push(current.vert6) if current.vert6 && !current.vert6.visited
+            current.vert6.visited = true if current.vert6 && current != start
+            queue.push(current.vert7) if current.vert7 && !current.vert7.visited
+            current.vert7.visited = true if current.vert7 && current != start
+            queue.push(current.vert8) if current.vert8 && !current.vert8.visited
+            current.vert8.visited = true if current.vert8 && current != start
         end
+
+        p moves
 
         output
     end
