@@ -153,13 +153,12 @@ class Knight < GameBoard
     
         queue = [currentNode]
         output = []
-        moves = 0
 
         until output[-1] == finish
+            #previous = current if current.coordinate != start
             current = queue.shift
-            moves += 1
-            moves = 0 if current == start
             output.push(current.coordinate)
+
             queue.push(current.vert1) if current.vert1 && !current.vert1.visited
             current.vert1.visited = true if current.vert1 && current != start
             queue.push(current.vert2) if current.vert2 && !current.vert2.visited
@@ -178,7 +177,38 @@ class Knight < GameBoard
             current.vert8.visited = true if current.vert8 && current != start
         end
 
-        p moves
+        path = [output[-1]]
+
+        output.each do |coord|
+            p coord[1]
+        end
+
+        i = 0
+
+        until i == 100
+            output.each do |coord|
+                if path[0][0] + 1 == coord[0] && path[0][1] + 2 == coord[1]
+                    path.unshift(coord)
+                elsif path[0][0] + 2 == coord[0] && path[0][1] + 1 == coord[1]
+                    path.unshift(coord)
+                elsif path[0][0] - 1 == coord[0] && path[0][1] + 2 == coord[1]
+                    path.unshift(coord)
+                elsif path[0][0] - 2 == coord[0] && path[0][1] + 1 == coord[1]
+                    path.unshift(coord)
+                elsif path[0][0] -1 == coord[0] && path[0][1] - 2 == coord[1]
+                    path.unshift(coord)
+                elsif path[0][0] - 2 == coord[0] && path[0][1] - 1 == coord[1]
+                    path.unshift(coord)
+                elsif path[0][0] + 1 == coord[0] && path[0][1] - 2 == coord[1]
+                    path.unshift(coord)
+                elsif path[0][0] + 2 == coord[0] && path[0][1] - 1 == coord[1]
+                    path.unshift(coord)
+                end
+            end
+            i += 1
+        end
+
+        p path
 
         output
     end
