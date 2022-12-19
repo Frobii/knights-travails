@@ -146,6 +146,32 @@ class Knight < GameBoard
 
         end
     end
+
+    def is_vert?(child, parent, board = @board)
+
+        parent = board[get_index(parent)]
+
+        if child == parent.vert1.coordinate
+            true
+        elsif child == parent.vert2.coordinate
+            true
+        elsif child == parent.vert3.coordinate
+            true
+        elsif child == parent.vert4.coordinate
+            true
+        elsif child == parent.vert5.coordinate
+            true
+        elsif child == parent.vert6.coordinate
+            true
+        elsif child == parent.vert7.coordinate
+            true
+        elsif child == parent.vert8.coordinate
+            true
+        else
+            false
+        end
+        
+    end
     
     def knight_moves(start, finish, board = @board)
 
@@ -177,38 +203,7 @@ class Knight < GameBoard
             current.vert8.visited = true if current.vert8 && current != start
         end
 
-        path = [output[-1]]
-
-        output.each do |coord|
-            p coord[1]
-        end
-
-        i = 0
-
-        until i == 100
-            output.each do |coord|
-                if path[0][0] + 1 == coord[0] && path[0][1] + 2 == coord[1]
-                    path.unshift(coord)
-                elsif path[0][0] + 2 == coord[0] && path[0][1] + 1 == coord[1]
-                    path.unshift(coord)
-                elsif path[0][0] - 1 == coord[0] && path[0][1] + 2 == coord[1]
-                    path.unshift(coord)
-                elsif path[0][0] - 2 == coord[0] && path[0][1] + 1 == coord[1]
-                    path.unshift(coord)
-                elsif path[0][0] -1 == coord[0] && path[0][1] - 2 == coord[1]
-                    path.unshift(coord)
-                elsif path[0][0] - 2 == coord[0] && path[0][1] - 1 == coord[1]
-                    path.unshift(coord)
-                elsif path[0][0] + 1 == coord[0] && path[0][1] - 2 == coord[1]
-                    path.unshift(coord)
-                elsif path[0][0] + 2 == coord[0] && path[0][1] - 1 == coord[1]
-                    path.unshift(coord)
-                end
-            end
-            i += 1
-        end
-
-        p path
+        outputClone = output.dup
 
         output
     end
