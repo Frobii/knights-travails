@@ -151,21 +151,21 @@ class Knight < GameBoard
 
         parent = board[get_index(parent)]
 
-        if child == parent.vert1.coordinate
+        if parent.vert1 && child == parent.vert1.coordinate
             true
-        elsif child == parent.vert2.coordinate
+        elsif parent.vert2 && child == parent.vert2.coordinate
             true
-        elsif child == parent.vert3.coordinate
+        elsif parent.vert3 &&  child == parent.vert3.coordinate
             true
-        elsif child == parent.vert4.coordinate
+        elsif parent.vert4 &&  child == parent.vert4.coordinate
             true
-        elsif child == parent.vert5.coordinate
+        elsif parent.vert5 &&  child == parent.vert5.coordinate
             true
-        elsif child == parent.vert6.coordinate
+        elsif parent.vert6 &&  child == parent.vert6.coordinate
             true
-        elsif child == parent.vert7.coordinate
+        elsif parent.vert7 &&  child == parent.vert7.coordinate
             true
-        elsif child == parent.vert8.coordinate
+        elsif parent.vert8 &&  child == parent.vert8.coordinate
             true
         else
             false
@@ -204,8 +204,26 @@ class Knight < GameBoard
         end
 
         outputClone = output.dup
+        fastestPath = []
 
-        output
+        outputClone.each_with_index do |parent, index|
+            previousParent = outputClone[index - 1] if index > 1
+            child = outputClone[index + 1]
+
+            p parent
+            p child
+            puts "\n"
+
+            if !is_vert?(child, parent)
+                outputClone.delete(child)
+            end
+
+
+        end
+
+        p output
+
+        outputClone
     end
 
     def print_paths(node = @board[56])
