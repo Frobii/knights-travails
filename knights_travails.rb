@@ -174,59 +174,56 @@ class Knight < GameBoard
     end
     
     def knight_moves(start, finish, board = @board)
-
-        currentNode = board[get_index(start)]
-    
-        queue = [currentNode]
-        output = []
-
-        until output[-1] == finish
-            #previous = current if current.coordinate != start
-            current = queue.shift
-            output.push(current.coordinate)
-
-            queue.push(current.vert1) if current.vert1 && !current.vert1.visited
-            current.vert1.visited = true if current.vert1 && current != start
-            queue.push(current.vert2) if current.vert2 && !current.vert2.visited
-            current.vert2.visited = true if current.vert2 && current != start
-            queue.push(current.vert3) if current.vert3 && !current.vert3.visited
-            current.vert3.visited = true if current.vert3 && current != start
-            queue.push(current.vert4) if current.vert4 && !current.vert4.visited
-            current.vert4.visited = true if current.vert4 && current != start
-            queue.push(current.vert5) if current.vert5 && !current.vert5.visited
-            current.vert5.visited = true if current.vert5 && current != start
-            queue.push(current.vert6) if current.vert6 && !current.vert6.visited
-            current.vert6.visited = true if current.vert6 && current != start
-            queue.push(current.vert7) if current.vert7 && !current.vert7.visited
-            current.vert7.visited = true if current.vert7 && current != start
-            queue.push(current.vert8) if current.vert8 && !current.vert8.visited
-            current.vert8.visited = true if current.vert8 && current != start
-        end
-
-        outputClone = output.dup
-        fastestPath = []
-
-        outputClone.each_with_index do |parent, index|
-            previousParent = outputClone[index - 1] if index > 1
-            child = outputClone[index + 1]
-
-            p parent
-            p child
-            puts "\n"
-
-            if !is_vert?(child, parent)
-                outputClone.delete(child)
+        queue = [start]
+        visited = []
+      
+        # Initialize a path tracking variable to store the path from start to finish
+        paths = {}
+        paths[start] = nil
+      
+        # Perform a breadth-first search to find the shortest path from start to finish
+        until queue.empty?
+          # Remove the first position from the queue
+          currentPos = queue.shift
+      
+          # If the current position is the finish position, return the path
+          if currentPos == finish
+            path = []
+            while currentPos != start
+              path.unshift(currentPos)
+              currentPos = paths[currentPos]
             end
+            path.unshift(start)
+            return path
+          end
+      
+          # Mark the current position as visited
+          visited.push(currentPos)
 
-
+          visited = visited.uniq
+      
+          # Generate a list of valid moves the knight can make from the current position
+          validMoves = []
+          currentNode = @board[get_index(currentPos)]
+          validMoves.push(currentNode.vert1) if currentNode.vert1 && !visited.include?(currentNode.vert1.coordinate)
+          validMoves.push(currentNode.vert2) if currentNode.vert2 && !visited.include?(currentNode.vert2.coordinate)
+          validMoves.push(currentNode.vert3) if currentNode.vert3 && !visited.include?(currentNode.vert3.coordinate)
+          validMoves.push(currentNode.vert4) if currentNode.vert4 && !visited.include?(currentNode.vert4.coordinate)
+          validMoves.push(currentNode.vert5) if currentNode.vert5 && !visited.include?(currentNode.vert5.coordinate)
+          validMoves.push(currentNode.vert6) if currentNode.vert6 && !visited.include?(currentNode.vert6.coordinate)
+          validMoves.push(currentNode.vert7) if currentNode.vert7 && !visited.include?(currentNode.vert7.coordinate)
+          validMoves.push(currentNode.vert8) if currentNode.vert8 && !visited.include?(currentNode.vert8.coordinate)
+      
+          # Add the valid moves to the queue and update the path tracking variable
+          validMoves.each do |move|
+            queue.push(move.coordinate)
+            paths[move.coordinate] = currentPos
+          end
         end
-
-        p output
-
-        outputClone
+       
     end
 
-    def print_paths(node = @board[56])
+    def print_paths(node = @board[30])
         # for debugging, change @board[] to check which moves the knight can make
         # remember that the first position of an array is 0 ;)
 

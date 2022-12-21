@@ -14,4 +14,4 @@ a.print_paths
 
 puts "\n"
 
-p a.knight_moves([1,2], [3,6])
+p a.knight_moves([0,0], [7,7])
