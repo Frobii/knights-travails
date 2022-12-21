@@ -10,8 +10,7 @@ puts "\n"
 
 a.possible_nodes
 
-a.print_paths
-
 puts "\n"
 
+puts "The knight made these moves to get to it's destination: "
 p a.knight_moves([0,0], [7,7])
